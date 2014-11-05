@@ -2,6 +2,8 @@
 
 // First things first is a requestAnimationFrame polyfill/fallback for better browser support
 (function() {
+  'use strict';
+
     var lastTime = 0;
     var vendors = ['webkit', 'moz'];
     for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
@@ -53,7 +55,8 @@
         console.log('From the top, now we here.');
       },
       ease: 'linear',
-      pushState: true
+      pushState: true,
+      padding: 0
     };
 
     // Create options by extending defaults with the passed in arguments
@@ -121,7 +124,9 @@
     this.steps = this.endPos - this.windowTop;
     var total = (this.options.speed / 1000) * 60;
 
-    this.currentVal = (this.steps * this.count) / (total + this.windowTop);
+    //this.currentVal = (this.steps * this.count) / (total + this.windowTop);
+    var easeFn = window[this.options.ease];
+
 
     window.scrollBy(0, (this.steps / total));
 
@@ -141,6 +146,27 @@
       this.requestID = requestAnimationFrame(scrollTo.bind(this));
     }
 
+  }
+
+  // Easing functions
+
+  function linear(currentIteration, startValue, changeInValue, totalIterations) {
+  	return changeInValue * currentIteration / totalIterations + startValue;
+  }
+
+  function easeInQuad(currentIteration, startValue, changeInValue, totalIterations) {
+  	return changeInValue * (currentIteration /= totalIterations) * currentIteration + startValue;
+  }
+
+  function easeOutQuad(currentIteration, startValue, changeInValue, totalIterations) {
+  	return -changeInValue * (currentIteration /= totalIterations) * (currentIteration - 2) + startValue;
+  }
+
+  function easeInOutQuad(currentIteration, startValue, changeInValue, totalIterations) {
+  	if ((currentIteration /= totalIterations / 2) < 1) {
+  		return changeInValue / 2 * currentIteration * currentIteration + startValue;
+  	}
+  	return -changeInValue / 2 * ((--currentIteration) * (currentIteration - 2) - 1) + startValue;
   }
 
 }());
