@@ -12,7 +12,7 @@
           window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
     }
 
-    if (!window.requestAnimationFrame)
+    if (!window.requestAnimationFrame) {
         window.requestAnimationFrame = function(callback, element) {
             var currTime = new Date().getTime();
             var timeToCall = Math.max(0, 16 - (currTime - lastTime));
@@ -21,11 +21,13 @@
             lastTime = currTime + timeToCall;
             return id;
         };
+      }
 
-    if (!window.cancelAnimationFrame)
+    if (!window.cancelAnimationFrame) {
         window.cancelAnimationFrame = function(id) {
             clearTimeout(id);
         };
+      }
 }());
 
 
@@ -60,7 +62,7 @@
     };
 
     // Create options by extending defaults with the passed in arguments
-    if(arguments[0] && typeof arguments[0] == "object") {
+    if(arguments[0] && typeof arguments[0] === "object") {
       this.options = extendDefaults(defaults, arguments[0]);
     } else {
       this.options = defaults;
@@ -123,6 +125,7 @@
     //console.dir(this);
     this.steps = this.endPos - this.windowTop;
     var total = (this.options.speed / 1000) * 60;
+    var stop;
 
     //this.currentVal = (this.steps * this.count) / (total + this.windowTop);
     var easeFn = window[this.options.ease];
@@ -131,9 +134,9 @@
     window.scrollBy(0, (this.steps / total));
 
     if(this.steps > 0) {
-      var stop = window.scrollY + window.innerHeight >= document.body.offsetHeight || window.scrollY >= this.endPos;
+      stop = window.scrollY + window.innerHeight >= document.body.offsetHeight || window.scrollY >= this.endPos;
     } else {
-      var stop = window.scrollY == 0 || window.scrollY <= this.endPos;
+      stop = window.scrollY === 0 || window.scrollY <= this.endPos;
     }
 
     console.log(stop);
@@ -170,21 +173,3 @@
   }
 
 }());
-
-// How it is used on the page.
-document.addEventListener('DOMContentLoaded', function(){
-  function focusBox() {
-    if (this.targetEl.classList.contains('focus') ) {
-      this.targetEl.classList.remove('focus');
-    }
-
-    this.targetEl.classList.add('focus');
-  }
-
-  var jumper = new Elevatr({
-    speed: 1000,
-    callback: focusBox
-  });
-
-  jumper.setTrigger('.jumper');
-}, false);

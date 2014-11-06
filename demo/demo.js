@@ -1,5 +1,7 @@
 // How it is used on the page.
 document.addEventListener('DOMContentLoaded', function(){
+  'use strict';
+  
   function focusBox() {
     if (this.targetEl.classList.contains('focus') ) {
       this.targetEl.classList.remove('focus');

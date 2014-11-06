@@ -1,5 +1,5 @@
 var fs = require('fs'),
-    pickFiles = require('broccoli-static-compiler'),
+    pickFiles = require('broccoli-select'),
     mergeTrees = require('broccoli-merge-trees'),
     compileSass = require('broccoli-sass'),
     autoprefix = require('broccoli-autoprefixer'),
@@ -10,17 +10,20 @@ var styles = compileSass(['demo'], 'style.scss', 'style.css');
 
 styles = autoprefix(styles);
 
-var demoScript = hint('demo');
-
-demoScript = uglify(demoScript, {
-  file: 'main.min.js'
+var scripts = pickFiles('.', {
+  acceptFiles: ['demo/*.js', 'src/*.js'],
+  rejectFiles: ['tmp/*'],
+  outputDir: '/'
 });
 
-var public = pickFiles('public', {
-  srcDir: '.',
-  destDir: '.'
+var hintedScripts = hint(scripts);
+
+scripts = mergeTrees([scripts, hintedScripts]);
+
+var pub = pickFiles('public', {
+  outputDir: '.'
 });
 
 //console.log(mergeTrees([styles, public]));
 
-module.exports = mergeTrees([styles, demoScript, public]);
+module.exports = mergeTrees([styles, scripts, pub]);
