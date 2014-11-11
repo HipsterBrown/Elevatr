@@ -1,7 +1,7 @@
 // How it is used on the page.
 document.addEventListener('DOMContentLoaded', function(){
   'use strict';
-  
+
   function focusBox() {
     if (this.targetEl.classList.contains('focus') ) {
       this.targetEl.classList.remove('focus');
@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
   var jumper = new Elevatr({
     speed: 1000,
-    callback: focusBox
+    callback: focusBox,
+    ease: 'easeInQuad'
   });
 
   jumper.setTrigger('.jumper');

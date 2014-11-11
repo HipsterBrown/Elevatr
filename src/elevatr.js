@@ -103,7 +103,8 @@
 
     this.windowTop = window.scrollY;
     this.targetEl = document.querySelector(e.target.hash);
-    this.endPos = this.targetEl.offsetTop;
+    this.endPos = this.targetEl.offsetTop - this.options.padding;
+    this.steps = this.endPos - this.windowTop;
 
     scrollTo.call(this);
     window.history.pushState(null, null, e.target.hash);
@@ -123,15 +124,15 @@
 
   function scrollTo() {
     //console.dir(this);
-    this.steps = this.endPos - this.windowTop;
     var total = (this.options.speed / 1000) * 60;
     var stop;
 
     //this.currentVal = (this.steps * this.count) / (total + this.windowTop);
-    var easeFn = window[this.options.ease];
+    var easeFn = this.options.ease;
 
+    var stepBy = eval(easeFn)(this.count, this.windowTop, this.steps, total);
 
-    window.scrollBy(0, (this.steps / total));
+    window.scrollTo(0, stepBy);
 
     if(this.steps > 0) {
       stop = window.scrollY + window.innerHeight >= document.body.offsetHeight || window.scrollY >= this.endPos;
