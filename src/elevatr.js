@@ -44,6 +44,8 @@
   window.Elevatr = function() {
 
     this.windowTop = null;
+    this.windowHeight = null;
+    this.docBottom = null;
     this.endPos = null;
     this.count = 0;
     this.currentVal = null;
@@ -101,7 +103,9 @@
   Elevatr.prototype.triggerJump = function(e) {
     e.preventDefault();
 
-    this.windowTop = window.scrollY;
+    this.windowTop = window.pageYOffset;
+    this.windowHeight = window.innerHeight;
+    this.docBottom = document.body.offsetHeight;
     this.targetEl = document.querySelector(e.target.hash);
     this.endPos = this.targetEl.offsetTop - this.options.padding;
     this.steps = this.endPos - this.windowTop;
@@ -135,9 +139,9 @@
     window.scrollTo(0, stepBy);
 
     if(this.steps > 0) {
-      stop = window.scrollY + window.innerHeight >= document.body.offsetHeight || window.scrollY >= this.endPos;
+      stop = window.pageYOffset + this.windowHeight >= this.docBottom || window.pageYOffset >= this.endPos;
     } else {
-      stop = window.scrollY === 0 || window.scrollY <= this.endPos;
+      stop = window.pageYOffset === 0 || window.pageYOffset <= this.endPos;
     }
 
     console.log(stop);
@@ -145,6 +149,7 @@
       this.count = 0;
       cancelAnimationFrame(this.requestID);
       this.options.callback.call(this);
+      this.requestID = null;
     } else {
       this.count++;
       this.requestID = requestAnimationFrame(scrollTo.bind(this));
