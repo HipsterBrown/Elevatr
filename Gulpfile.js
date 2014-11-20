@@ -3,7 +3,7 @@ var git = require('gulp-git');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var autoprefix = require('gulp-autoprefixer');
-var jshint = require('gulp-jshint');
+var hint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 var connect = require('gulp-connect');
 
@@ -54,7 +54,7 @@ gulp.task('watch', function() {
 
   gulp.watch(['demo/index.html'], ['html']);
   gulp.watch(['demo/*.scss'], ['sass']);
-  gulp.watch(['dmeo/*.js', 'src/*.js'], ['hint', 'scripts']);
+  gulp.watch(['dmeo/*.js', 'src/*.js'], ['hint', 'js']);
 });
 
 gulp.task('default', ['serve', 'watch']);

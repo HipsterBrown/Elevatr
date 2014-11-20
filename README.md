@@ -41,4 +41,4 @@ TODO
 - Design & develop landing page
 - Add docs
 
-Please open an issue with any constuctive comments or feedback.
+Please open an issue with any constructive comments or feedback.

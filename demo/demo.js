@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function(){
   function focusBox() {
     if (this.targetEl.classList.contains('focus') ) {
       this.targetEl.classList.remove('focus');
+      this.targetEl.classList.add('focus');
     }
 
     this.targetEl.classList.add('focus');
