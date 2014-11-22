@@ -38,6 +38,7 @@ TODO
 
 - Add tests
 - Add build and tagging process
+- Create Bower package
 - Design & develop landing page
 - Add docs
 
