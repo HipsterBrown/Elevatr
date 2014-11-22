@@ -110,6 +110,11 @@
     this.endPos = this.targetEl.offsetTop - this.options.padding;
     this.steps = this.endPos - this.windowTop;
 
+    if ( this.steps > 0 && nearBottom.call(this) ) {
+      this.steps = this.docBottom - this.windowHeight;
+    }
+
+
     scrollTo.call(this);
     window.history.pushState(null, null, e.target.hash);
   };
@@ -126,6 +131,12 @@
     return source;
   }
 
+  function nearBottom() {
+    var status = this.docBottom - this.windowHeight <= this.endPos;
+
+    return status;
+  }
+
   function scrollTo() {
     var total = (this.options.speed / 1000) * 60;
     var stop;
@@ -136,11 +147,7 @@
 
     window.scrollTo(0, stepBy);
 
-    if(this.steps > 0) {
-      stop = window.pageYOffset + this.windowHeight >= this.docBottom || window.pageYOffset >= this.endPos;
-    } else {
-      stop = window.pageYOffset === 0 || window.pageYOffset <= this.endPos;
-    }
+    stop = stepBy === this.steps;
 
     if(stop) {
       this.count = 0;

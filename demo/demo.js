@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function(){
   var jumper = new Elevatr({
     speed: 1000,
     callback: focusBox,
-    ease: 'easeInQuad'
+    ease: 'easeInOutQuint'
   });
 
   jumper.setTrigger('.jumper');
