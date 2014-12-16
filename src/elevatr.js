@@ -103,6 +103,10 @@
   // Used internally but still public if the dev wants to use it without setTrigger
   Elevatr.prototype.triggerJump = function(e) {
     e.preventDefault();
+    if (this.requestID > 0) {
+      cancelAnimationFrame(this.requestID);
+    }
+    // this.requestID = 0;
 
     this.windowTop = window.pageYOffset;
     this.windowHeight = window.innerHeight;
@@ -122,6 +126,8 @@
     if (supportsHistory()) {
       window.history.pushState(null, null, e.target.hash);
     }
+
+    console.log(this.steps, this.requestID);
   };
 
   // Private Methods
@@ -146,7 +152,7 @@
     return status;
   }
 
-  function scrollTo() {
+  function scrollTo(newTime) {
     var total = (this.options.speed / 1000) * 60;
     var done;
 
@@ -160,12 +166,16 @@
 
     if(done) {
       this.count = 0;
+      stepBy = null;
+      total = null;
       cancelAnimationFrame(this.requestID);
       this.options.callback.call(this);
-      this.requestID = null;
+      this.requestID = 0;
+      //console.log(this.requestID);
     } else {
       this.count++;
       this.requestID = requestAnimationFrame(scrollTo.bind(this));
+      //console.log(this.requestID);
     }
 
   }
