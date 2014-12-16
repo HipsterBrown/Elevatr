@@ -28,7 +28,8 @@ h1 {
   width: 100%;
 }
 
-header, main {
+header,
+main {
   flex: auto;
 }
 
@@ -49,7 +50,7 @@ a {
   text-decoration: none;
 }
 
-a.jumper {
+.jumper {
   border: 4px solid black;
   color: black;
   font-weight: bold;

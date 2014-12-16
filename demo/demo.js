@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
   var jumper = new Elevatr({
     speed: 1000,
-    callback: focusBox,
-    ease: 'easeInOutQuint'
+    //callback: focusBox,
+    //ease: 'easeInOutQuint'
   });
 
   jumper.setTrigger('.jumper');

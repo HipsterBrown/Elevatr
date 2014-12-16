@@ -14,19 +14,24 @@ Run Local Demo
 ---
 
 If Gulp is not installed:
-```
-npm install -g gulp
+```bash
+$ npm install -g gulp
 ```
 
 
 To install all the Gulp plugins:
-```
-npm install
+```bash
+$ npm install
 ```
 
-To serve the demo page
+To serve the demo page:
+```bash
+$ gulp serve
 ```
-gulp serve
+
+To serve the demo and watch files for changes:
+```bash
+$ gulp
 ```
 
 Gulp is now watching the plugin javascript and the demo files, so play with the code and it will livereload the changes.
@@ -36,10 +41,10 @@ Gulp is now watching the plugin javascript and the demo files, so play with the 
 TODO
 ---
 
-- Add tests
-- Add build and tagging process
-- Create Bower package
-- Design & develop landing page
-- Add docs
+- [ ] Add tests
+- [ ] Add build and tagging process
+- [ ] Create Bower package
+- [ ] Design & develop landing page
+- [ ] Add docs
 
 Please open an issue with any constructive comments or feedback.

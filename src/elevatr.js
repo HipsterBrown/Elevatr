@@ -118,7 +118,10 @@
     this.easings = easings();
 
     scrollTo.call(this);
-    window.history.pushState(null, null, e.target.hash);
+
+    if (supportsHistory()) {
+      window.history.pushState(null, null, e.target.hash);
+    }
   };
 
   // Private Methods
@@ -131,6 +134,10 @@
       }
     }
     return source;
+  }
+
+  function supportsHistory() {
+    return !!(window.history && history.pushState);
   }
 
   function nearBottom() {
